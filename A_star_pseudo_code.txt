@@ -1,0 +1,36 @@
+OPEN = list()       #The set of nodes to be evaluated
+CLOSED = list()      #The set of nodes already evaluated
+root = Node(parent = None)
+
+root.g = 0
+root.f = h(root)
+add root to OPEN
+
+while OPEN not empty:
+    current = node in OPEN with the lowest f_cost = OPEN.pop(0)     #We take the lower f_cost in the OPEN list, which could have been sorted before
+    remove current from OPEN
+    add current to CLOSED
+
+    if current is a target node:
+        path has been found
+        return
+    
+    for each neighbour n of current (reachable from current of course):
+        if n in CLOSED:             #If we already evaluated the node, skip it
+            continue    
+
+        if n is in OPEN:           #If we already have to evaluated n, we may want to modify its g_score and its parent if reach n from current is better
+            new_g = current.g + cost(current, n)
+            if new_g < n.g:
+                n.g = new_g
+                n.parent = current
+
+        if n is not in OPEN:        #If we never see the node, we add it to OPEN while respecting the ordering of OPEN by f score 
+            n.g = current.g + cost(current, n)
+            n.f = n.g + h(n)
+            n.parent = current
+            add n to OPEN while respecting order
+
+
+no path found from root to a terminal node (error for our problem)
+
