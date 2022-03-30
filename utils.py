@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def n2letter(n):
     '''0 to 'a', 1 to 'b', ... '''

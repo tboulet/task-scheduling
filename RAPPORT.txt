@@ -1,0 +1,21 @@
+
+
+Courbes e = f(n_core)
+
+
+Expliquer la structure de Node en arbre (non utilisé)
+Expliquer la structure de Node en DAG non-arbre
+Rendre la structure économe en mémoire (dire pk on a fait ca c'à dire ca prend trop de mémoire O(n_task²*n_core je crois) en utilisant le lien enfant-parent
+Rendre VRAIMENT  la structure de Node avec deux ensemble (un pour tasks_done et un pour cores)
+
+Expliquer la manière dont on calcule le SBL (backpropagation du sbl en partant des taches finales jusqu'aux initiales)
+
+Expliquer la notion de critical_path_score et expliquer pourquoi c'est max(sbl(t) for t in Initial_tasks), dire en quoi ca permet d'évaluer les perfs de l'algo
+
+Montrer ce que donne l'algo sur de nombreux exemples de plus en plus compliqués (afficher graph de tasks + schedule trouvé par l'algo)
+
+Parallélisation
+
+
+
+Parler de la notion de "core available at the same time up to epsilon" qui permet de réduire l'ensemble des noeuds
