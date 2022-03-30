@@ -1,0 +1,13 @@
+
+
+Courbes e = f(n_core)
+
+
+Expliquer la structure de Node en arbre (non utilisé)
+Expliquer la structure de Node en DAG non-arbre
+Rendre la structure économe en mémoire en utilisant le lien enfant-parent
+
+Parallélisation
+
+
+
