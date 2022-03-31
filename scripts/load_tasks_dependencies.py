@@ -15,16 +15,21 @@ from config import *
 
 
 
-def load_tasks_dependencies(path):
+def load_tasks_dependencies(path = None, nodes = None):
     '''
+    path = path/to/graph.json, None if not the method
+    nodes = dictionnary of nodes, None if not the method
     Load objects tasks, task_count, task2childs, task2parents, functions task2childs and task2parents
     '''
     
     print("Loading task graph...")
     #Load task graph
-    file = open(path)
-    data = json.load(file)
-    nodes = data['nodes']
+    if nodes is None:
+        file = open(path)
+        data = json.load(file)
+        nodes = data['nodes']
+    elif nodes is None:
+        raise Exception("Not implemented")
     tasks = dict()
     for task_str, info in nodes.items():
         task = int(task_str)

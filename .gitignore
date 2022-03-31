@@ -2,6 +2,7 @@ data
 config.py
 test.py
 *.prof
+*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
