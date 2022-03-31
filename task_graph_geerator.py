@@ -24,21 +24,23 @@ def generate_task_graph(number_tasks : int, dependencies_mean : float, time_mean
     #nx.draw(DAG)
     #plt.show() #TO VISUALIZE THE GRAPH
 
-    nodes = {i+1 : {} for i in G.nodes()}
+    nodes = {str(i+1) : {} for i in G.nodes()}
     for id, value in nodes.items():
-        value["Data"] =  float_to_time(max(np.random.normal(time_mean, time_desviation),0))
+        value["Data"] =  float_to_time(max(np.random.normal(time_mean, time_desviation),time_mean/10))
         value["Dependencies"] = []
     for u,v in DAG.edges():
-        nodes[v]["Dependencies"].append(u)
+        nodes[str(v+1)]["Dependencies"].append(u+1)
 
     if path_to_save != None:
         file = open(path_to_save, "w")
         json.dump({"nodes" : nodes}, file, indent=4)
+    print(nodes)
     return nodes
 
 
 def main():
-    #nodes = generate_task_graph(10, 2.0, 1000.0, 500.0, "graph.json")
+    nodes = generate_task_graph(10, 2.0, 1000.0, 500.0, "graph.json")
+    print(nodes)
     pass
 
 if __name__ == "__main__":

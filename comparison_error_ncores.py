@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import pandas as pd
 import json
@@ -10,11 +11,14 @@ from typing import Dict, Tuple
 import matplotlib.pyplot as plt
 import random
 
+from torch import take_along_dim
+
 from utils import *
 from visualisation import plot_schedule
 
 from config import n_cores, filename, alpha
 from load_tasks_dependencies import load_tasks_dependencies
+from task_graph_geerator import generate_task_graph
 from NODE import Node
 from IDASTAR import ida_star
 
@@ -36,20 +40,25 @@ def run(tasks, task_count, task2childs, task2parents, task2sbl, task_is_inital, 
             self.alpha = alpha
             self.task_count = task_count
     graph = Graph()
-        
+    
+    start = time.perf_counter()
     final_node = ida_star(Node(graph=graph))
+    dt = time.perf_counter() - start
     
     score = final_node.f
     error_ratio = (score - critical_path_score)/critical_path_score
-    return 0, error_ratio, score, final_node
+    return dt, error_ratio, score, final_node
     
     
     
     
 if __name__ == '__main__':
-    tasks, task_count, task2childs, task2parents, task2sbl, task_is_inital, task_is_terminal = load_tasks_dependencies(filename)
+    nodes = generate_task_graph(10, 2.0, 1000.0, 500.0, "graph.json")
+    tasks, task_count, task2childs, task2parents, task2sbl, task_is_inital, task_is_terminal = load_tasks_dependencies(path = filename)
+    tasks, task_count, task2childs, task2parents, task2sbl, task_is_inital, task_is_terminal = load_tasks_dependencies(nodes = nodes)
     dt, error_ratio, score, final_node = run(tasks, task_count, task2childs, task2parents, task2sbl, task_is_inital, task_is_terminal, n_cores=n_cores, alpha=alpha)
-    print(dt)
-    print(error_ratio)
-    print(score)
+    
+    print("Temps de calcul en seconde:", dt)
+    print("Error ratio:", error_ratio)
+    print("Score:", score)
     plot_schedule(final_node)
