@@ -18,7 +18,7 @@ from visualisation import plot_schedule
 
 from config import n_cores, filename, alpha
 from load_tasks_dependencies import load_tasks_dependencies
-from task_graph_geerator import generate_task_graph
+from task_graph_generator import generate_task_graph
 from NODE import Node
 from IDASTAR import ida_star
 
