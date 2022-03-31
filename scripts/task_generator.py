@@ -29,7 +29,6 @@ def generate_task_graph(number_tasks : int, dependencies_mean : float, time_mean
     if path_to_save != None:
         file = open(path_to_save, "w")
         json.dump({"nodes" : nodes}, file, indent=4)
-    print(nodes)
     return nodes
 
 

@@ -37,3 +37,4 @@ def plot_schedule(node, critical_path=[]):
                         zorder=101)
     plt.yticks(list(colors_by_proc.keys()), [f'Proc {proc}' for proc in colors_by_proc.keys()])
     plt.tight_layout()
+    plt.show()

@@ -36,12 +36,12 @@ def search(graph, stack, bound, recul, depth):
 def ida_star(graph, recul = 1, limit = np.inf, depth = np.inf):
     bound = limit
     stack = [graph.root]
-    t = search(stack, bound, recul + 1, depth)
+    t = search(graph, stack, bound, recul + 1, depth)
     if isinstance(t, Node):
         return t
     return None
 
-def best_time(graph):
+def compute_best_time(graph):
     task_df = pd.DataFrame.from_dict(graph.tasks_to_sbl, orient='index', columns=['sbl'])
     best_time = task_df['sbl'].max()
     return best_time
@@ -49,7 +49,7 @@ def best_time(graph):
 def verify(graph, node):
     solution_df = pd.DataFrame.from_dict(node.schedule, orient='index', columns=['start', 'end', 'core'])
     score = solution_df['end'].max()
-    best_time = best_time(graph)
+    best_time = compute_best_time(graph)
     if  best_time > score:
         return False
 
@@ -57,4 +57,4 @@ def verify(graph, node):
         for parent in graph.tasks[task]['Dependencies']:
             if solution_df.loc[parent]['end'] > solution_df.loc[task]['start']:
                 return False
-    return (score - best_time)/best_time, score
+    return score/best_time, score
