@@ -1,6 +1,12 @@
 
 import task_graph_generator
-import mpi4py
+from Graph import Graph
+from Node import Node
+import numpy as np
+from utils import *
+from mpi4py import MPI
+
+
 
 def search(stack, bound, depth):
     indexes = [0]
@@ -14,7 +20,7 @@ def search(stack, bound, depth):
             return sorted(graph.successors(stack[-2]), key=lambda n: n.g)[0]
         
         if len(stack) == depth:
-            return sorted(graph.successors(stack[-2]), key=lambda n: n.g + graph.h(n))[0]
+            return sorted(graph.successors(stack[-2]), key=lambda n: n.g + graph.h(n))
 
         if f > bound:
             stack.pop()
@@ -46,8 +52,25 @@ def ida_star(depth = np.inf):
 
 
 def main():
-    DAG = task_graph_generator.generate_task_graph(10, 1, 1000, 300)
-    
+    global graph
+    best_nodes = []
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+    size = comm.Get_size()
+    if rank == 0:
+        graph = Graph('../Graphs/xsmallComplex.json', 6, 1)
+        depth = 5
+        bound = graph.h(graph.root)*2
+        stack = [graph.root]
+        branches = search(stack, bound, depth)[:size]
+        for i in range(i):
+            comm.bsend(branches, i)
+        while True:
+            comm.recv(best_nodes)
+    else:
+        node = None
+        comm.recv(node, 0)
+        print(node)
     pass
 
 if __name__ == "__main__":

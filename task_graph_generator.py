@@ -118,7 +118,7 @@ def generate_task_graph(number_tasks : int, dependencies_mean : float, time_mean
 
 
 def main():
-    #nodes = generate_task_graph(100, 2.0, 1000.0, 500.0, "graph.json") GENERATE RANDOM
+    #nodes = generate_task_graph(100, 2.0, 1000.0, 500.0, "graph.json") #GENERATE RANDOM
     #print(nodes)
 
     #G = fileToGraph("../Graphs/graph.json") GENERATE G FROM A FILE
