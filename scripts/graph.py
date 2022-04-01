@@ -12,7 +12,6 @@ def read_data(path):
         task = int(task_str)
         tasks[task] = {'Data' : string2duration(info['Data']), 'Dependencies' : info['Dependencies']}
     task_count = len(tasks)
-    print("Data loaded successfully. Number of tasks: " + str(task_count))
     return tasks, task_count
 
 def load_dependencies(tasks):

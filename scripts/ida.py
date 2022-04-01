@@ -9,7 +9,7 @@ def random_choice(graph):
     node = graph.root
     while not graph.is_solved(node):
         index = randint(0, graph.n_successors(node) - 1)
-        node = graph.successor(node, index)
+        node = graph.successor(node, index, False)
     return node
 
 def step_back(graph, node, bound, depth, fast):
@@ -105,5 +105,4 @@ def verify(graph, node):
         for parent in graph.tasks[task]['Dependencies']:
             if solution_df.loc[parent]['end'] > solution_df.loc[task]['start']:
                 return False
-    print(score, bestscore)
-    return (100*(score - bestscore)/bestscore)
+    return score/bestscore, score
