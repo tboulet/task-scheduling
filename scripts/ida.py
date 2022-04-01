@@ -1,6 +1,16 @@
 import numpy as np
 from node import Node
 import pandas as pd
+from random import randint
+
+def random_choice(graph):
+    '''Return a random total scheduling from a graph.
+    '''
+    node = graph.root
+    while not graph.is_solved(node):
+        index = randint(0, graph.n_successors(node) - 1)
+        node = graph.successor(node, index)
+    return node
 
 def step_back(graph, node, bound, depth, fast):
     stack = [node]
