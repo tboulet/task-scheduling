@@ -33,11 +33,11 @@ def plot_schedule(node, critical_path=[]):
                         (proc-.4, .8),
                         facecolors=color,
                         **critical_kwargs)
-        plt.annotate(str(id),
-                        xy=((start+end)/2, proc),
-                        ha='center',
-                        va='center',
-                        zorder=101)
+        #plt.annotate(str(id),
+        #                xy=((start+end)/2, proc),
+        #                ha='center',
+        #                va='center',
+        #                zorder=101)
     plt.yticks(list(colors_by_proc.keys()), [f'Proc {proc}' for proc in colors_by_proc.keys()])
     plt.tight_layout()
     plt.show()
