@@ -1,6 +1,7 @@
 from utils import *
 import json
 from node import Node
+import pandas as pd
 
 def read_data(path):
     file = open(path)
@@ -11,7 +12,7 @@ def read_data(path):
         task = int(task_str)
         tasks[task] = {'Data' : string2duration(info['Data']), 'Dependencies' : info['Dependencies']}
     task_count = len(tasks)
-    # print("Data loaded successfully. Number of tasks: " + str(task_count))
+    print("Data loaded successfully. Number of tasks: " + str(task_count))
     return tasks, task_count
 
 def load_dependencies(tasks):
@@ -103,7 +104,9 @@ class Graph:
     def n_successors(self, node):
         return len(self.successors(node))
     
-    def successor(self, node, i):
+    def successor(self, node, i, fast):
+        if fast:
+            return sorted(self.successors(node), key = lambda n: n.g)[i]
         return sorted(self.successors(node), key = lambda n: n.g + self.h(n))[i]
     
     def successors(self, node):
@@ -131,3 +134,8 @@ class Graph:
                 childs.append(child)
                 
         return childs
+    
+    def best_time(self):
+        task_df = pd.DataFrame.from_dict(self.tasks_to_sbl, orient='index', columns=['sbl'])
+        best_time = task_df['sbl'].max()
+        return best_time

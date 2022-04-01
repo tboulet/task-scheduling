@@ -1,6 +1,6 @@
 data
 config.py
-test.py
+test*
 *.prof
 *.json
 

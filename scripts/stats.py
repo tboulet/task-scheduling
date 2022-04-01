@@ -15,7 +15,7 @@ def run(filename, recul = 1, n_cores = 2, alpha = 1):
     Return the time of execution, the error_ratio and the score.
     '''
     graph = Graph(filename, n_cores, alpha)
-    perfect_score = compute_best_time(graph)
+    perfect_score = graph.best_time()
     random_final_node = random_choice(graph)
     
     start = time.perf_counter()
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     print(f"Searching a solution for : {filename}")
     
-    if False:
+    if True:
         #RATIO, RATIO_RANDOM, TPS_EXEC = f(n_core)
         L_cores = [c for c in range(2, 20)]
         L_times = list()
@@ -63,8 +63,7 @@ if __name__ == '__main__':
         plt.xlabel("n_cores = number of cores")
         plt.legend()
         plt.show()
-        plot_schedule(final_node)
-        
+        raise
         
     if False:
         #RATIO, RATIO_RANDOM, TPS_EXEC = f(n_task)
