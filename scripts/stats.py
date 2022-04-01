@@ -15,7 +15,7 @@ def run(filename, recul = 1, n_cores = 2, alpha = 1):
     Return the time of execution, the error_ratio and the score.
     '''
     graph = Graph(filename, n_cores, alpha)
-    perfect_score = compute_best_time(graph)
+    perfect_score = graph.best_time()
     random_final_node = random_choice(graph)
     
     start = time.perf_counter()
