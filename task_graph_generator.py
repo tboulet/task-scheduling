@@ -1,6 +1,6 @@
 import networkx as nx
-#import matplotlib.pyplot as plt
-i#mport matplotlib.patches
+import matplotlib.pyplot as plt
+import matplotlib.patches
 import numpy as np
 import json
 
@@ -41,6 +41,28 @@ def float_to_time(time : float):
     time = int((time - seconds)*10e6)
     return "{hours:02d}:{minutes:02d}:{seconds:02d}.{miliseconds:07d}".format(hours = hours, minutes = minutes, seconds = seconds, miliseconds = time)
 
+def read_data(path):
+    file = open(path)
+    data = json.load(file)
+    nodes = data['nodes']
+    tasks = dict()
+    for task_str, info in nodes.items():
+        task = int(task_str)
+        tasks[task] = {'Dependencies' : info['Dependencies']}
+    task_count = len(tasks)
+    print("Data loaded successfully. Number of tasks: " + str(task_count))
+    return tasks, task_count
+
+
+def fileToGraph(path):
+    graph, count = read_data(path)
+    G = nx.DiGraph()
+    G.add_nodes_from(graph)
+    for node in graph:
+        for edge in graph[node]["Dependencies"]:
+            G.add_edge(edge, node)
+    G = nx.convert_node_labels_to_integers(G, 0)
+    return G
 
 def plot_graph(G):
     sbl = bottom_level(G)
@@ -90,14 +112,17 @@ def generate_task_graph(number_tasks : int, dependencies_mean : float, time_mean
         json.dump({"nodes" : nodes}, file, indent=4)
 
     # TO PLOT THE GRAPH
-    #plot_graph(DAG)
+    plot_graph(DAG)
     
     return nodes
 
 
 def main():
-    nodes = generate_task_graph(10, 2.0, 1000.0, 500.0, "graph.json")
-    print(nodes)
+    #nodes = generate_task_graph(100, 2.0, 1000.0, 500.0, "graph.json") GENERATE RANDOM
+    #print(nodes)
+
+    #G = fileToGraph("../Graphs/graph.json") GENERATE G FROM A FILE
+    #plot_graph(G)
     pass
 
 if __name__ == "__main__":
