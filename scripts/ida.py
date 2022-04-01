@@ -1,8 +1,11 @@
+from random import randint
 import numpy as np
 from node import Node
 import pandas as pd
 
 def search(graph, stack, bound, recul, depth):
+    '''Search function for the IDA* algorithm. 
+    '''
     indexes = [0]
     while (len(stack)):
         node = stack[-1]
@@ -10,6 +13,7 @@ def search(graph, stack, bound, recul, depth):
 
         f = node.g + graph.h(node)
 
+        #Don't explore the branch if its f_score estimated excess a fixed bound value.
         if f > bound:
             stack.pop()
             indexes.pop()
@@ -31,6 +35,7 @@ def search(graph, stack, bound, recul, depth):
         stack.append(succ)
         indexes.append(0)
     
+    #No path to the goal node were found
     return False
 
 def ida_star(graph, recul = 1, limit = np.inf, depth = np.inf):
@@ -58,3 +63,14 @@ def verify(graph, node):
             if solution_df.loc[parent]['end'] > solution_df.loc[task]['start']:
                 return False
     return score/best_time, score
+
+
+
+def random_choice(graph):
+    '''Return a random total scheduling from a graph.
+    '''
+    node = graph.root
+    while not graph.is_solved(node):
+        index = randint(0, graph.n_successors(node) - 1)
+        node = graph.successor(node, index)
+    return node
