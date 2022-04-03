@@ -115,6 +115,7 @@ def verify(graph, node):
 
 def save_schedule(dic, filename):
     json_dic = json.dumps(dic)
-    f = open(f"{filename[-5:]}_schedule.json","w")
+    print(f"{filename[-5:]}_schedule.json")
+    f = open(f"{filename[:-5]}_schedule.json","w")
     f.write(json_dic)
     f.close()
