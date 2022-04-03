@@ -2,6 +2,9 @@
 
 Implementation of an informed search algorithm A* and IDA* for solving a scheduling problem, aiming to optimize the use of several cores for completing interdependent tasks.
 
+![alt text](https://github.com/tboulet/task-scheduling/blob/main/results/xsmallComplex_6_h.png?raw=true)
+
+
 If you want use our algorithm, you have to create a config file in scripts/config.py where you can specify the number of cores and the task graph of your problem. A template is available at scripts/config_template.py.
 
 Then put the task graph json file in at the path corresponding to the config. The json file should be of the form (for a very simple graph):
