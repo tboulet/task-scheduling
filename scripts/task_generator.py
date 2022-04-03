@@ -1,3 +1,5 @@
+#Random generation of task graph.
+
 import matplotlib
 from matplotlib import pyplot as plt
 import networkx as nx

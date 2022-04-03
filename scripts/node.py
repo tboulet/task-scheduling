@@ -1,3 +1,5 @@
+#Node object, representing a partial schedule. A node is characterized by the tasks already done and the tasks computed on each core and until when.
+
 from utils import *
 
 class Node():

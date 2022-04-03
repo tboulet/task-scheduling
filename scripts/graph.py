@@ -1,3 +1,5 @@
+#The graph of node (ie partial scheduling) defined from a file.
+
 from utils import *
 import json
 from node import Node

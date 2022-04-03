@@ -1,4 +1,7 @@
+#IDA* algorithm
+
 import numpy as np
+import json
 from node import Node
 import pandas as pd
 from random import randint
@@ -86,13 +89,16 @@ def search(graph, stack, bound, recul, depth, fast):
     
     return False
 
-def ida_star(graph, recul = 1, limit = np.inf, depth = np.inf, fast = True):
+def ida_star(graph, recul = 1, limit = np.inf, depth = np.inf, fast = True, filename = None):
     bound = limit*graph.alpha
     stack = [graph.root]
     t = search(graph, stack, bound, recul + 1, depth, fast)
     if isinstance(t, Node):
+        if filename != None:
+            save_schedule(t.schedule, filename)
         return t
-    return None
+    raise Exception("No path found, error in task graph")
+
 
 def verify(graph, node):
     solution_df = pd.DataFrame.from_dict(node.schedule, orient='index', columns=['start', 'end', 'core'])
@@ -106,3 +112,9 @@ def verify(graph, node):
             if solution_df.loc[parent]['end'] > solution_df.loc[task]['start']:
                 return False
     return score/bestscore, score
+
+def save_schedule(dic, filename):
+    json_dic = json.dumps(dic)
+    f = open(f"{filename[-5:]}_schedule.json","w")
+    f.write(json_dic)
+    f.close()

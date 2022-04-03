@@ -37,10 +37,8 @@ class Graph:
         for task, info in self.tasks.items():
             if task in node.tasks_done_time: #On passe les taches déjà ajoutées
                 continue    #O(n_task)
-            if not all([task_required in node.tasks_done_time for task_required in info['Dependencies']]):   #On ne garde que les taches dont toutes les dépendances ont été réalisées
-                continue    #O(n_task * n_depencies_of_node)
             
-            pass_task = False
+            pass_task = False #On passe les tâches auquels il manque au moins une dépendance dans tasks_done
             for task_required in info['Dependencies']:
                 if task_required not in node.tasks_done_time:
                     pass_task = True

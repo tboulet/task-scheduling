@@ -1,9 +1,10 @@
+#Statistics about influence of parameters on time complexity and performance of the algorithm.
+
 import sys
 import time
 
 from matplotlib import pyplot as plt
 from tqdm import tqdm
-from load_tasks_dependencies import load_tasks_dependencies
 from utils import *
 from config import *
 from visualization import plot_schedule
@@ -13,7 +14,7 @@ from ida import ida_star, verify, random_choice
 
 def run(filename, recul = 1, n_cores = 2, alpha = 1, beta = 8):
     '''Run an IDA star algorithm on the graph given and with corresponding cores and alpha parameters.
-    Return the time of execution, the error_ratio and the score.
+    Return metrics.
     '''
     graph = Graph(filename, n_cores, alpha)
     perfect_score = graph.best_time()
